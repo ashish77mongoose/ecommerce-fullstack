@@ -5,7 +5,6 @@ import { deletePost } from "../../api/api";
 import ToastMsg from "../toast/ToastMsg";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { updateMyPosts } from "../../redux/features/postSlice";
 
 const DeleteConfirmation = ({ isOpen, closeModal, id }) => {
     const dispatch=useDispatch()
@@ -16,7 +15,6 @@ const DeleteConfirmation = ({ isOpen, closeModal, id }) => {
       if (status >= 200 && status < 300) {
         toast.success(<ToastMsg title={data.message} />);
         closeModal();
-        dispatch(updateMyPosts(id))
       } else {
         toast.error(<ToastMsg title={data.message} />);
       }

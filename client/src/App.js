@@ -1,16 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AddPost from "./pages/AddPost";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import { ToastContainer, toast } from "react-toastify";
 import {
-  FavouritePosts,
   ForgotPassword,
+  Home,
   Login,
-  MyPosts,
-  PostDetail,
-  Posts,
-  Profile,
   Register,
   ResetPassword,
 } from "./pages";
@@ -46,13 +41,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout />}>
-            <Route index element={<Posts />} />
-            <Route path="add" element={<AddPost />} />
-            <Route path="edit/:id" element={<AddPost />} />
-            <Route path="my-post" element={<MyPosts />} />
-            <Route path="profile/:userId" element={<Profile />} />
-            <Route path="post/:id" element={<PostDetail />} />
-            <Route path="favourites" element={<FavouritePosts />} />
+            <Route index element={<Home />} />
+            
           </Route>
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />

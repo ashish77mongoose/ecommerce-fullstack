@@ -106,4 +106,7 @@
   .form-error{
     @apply text-red-600 text-sm;
   }
+  .border-c{
+    @apply border border-zinc-300;
+  }
 }
