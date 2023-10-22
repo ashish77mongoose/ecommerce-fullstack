@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import userRoutes from "./routes/users.js";
 import categoryRoutes from "./routes/categories.js";
+import productRoutes from "./routes/products.js";
 import upload from "./middleware/upload.js";
 import dotenv from "dotenv";
 import morgan from 'morgan';
@@ -22,6 +23,7 @@ mongoose.set("strictQuery", false);
 // routes
 app.use("/auth", userRoutes);
 app.use("/category", categoryRoutes);
+app.use("/product", productRoutes);
 app.post("/upload", upload.single("file"), (req, res) => {
   res.status(200).json(req.file.filename);
 });

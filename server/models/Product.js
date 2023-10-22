@@ -13,10 +13,6 @@ const productSchema = mongoose.Schema({
         type: String,
         default: ''
     },
-    image: {
-        type: String,
-        default: ''
-    },
     images: [{
         type: String
     }],
@@ -50,10 +46,6 @@ const productSchema = mongoose.Schema({
     isFeatured: {
         type: Boolean,
         default: false,
-    },
-    dateCreated: {
-        type: Date,
-        default: Date.now,
     },
 },{ timestamps: true })
 
