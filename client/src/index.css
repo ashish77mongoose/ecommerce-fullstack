@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800;900&display=swap");
+
+@layer base {
+  :root {
+    --toastify-color-light: #fff;
+    --toastify-color-dark: #121212;
+    --toastify-color-info: #3498db;
+    --toastify-color-success: theme(colors.green.800);
+    --toastify-color-warning: #f1c40f;
+    --toastify-color-error: theme(colors.red.800);
+    --toastify-color-transparent: rgba(255, 255, 255, 0.7);
+
+    --toastify-icon-color-info: var(--toastify-color-info);
+    --toastify-icon-color-success: theme(colors.green.800);
+    --toastify-icon-color-warning: var(--toastify-color-warning);
+    --toastify-icon-color-error: theme(colors.red.800);
+
+    --toastify-toast-width: 320px;
+    --toastify-toast-background: #fff;
+    --toastify-toast-min-height: 70px;
+    --toastify-toast-max-height: 800px;
+    --toastify-z-index: 9999;
+    --toastify-font-family: theme(fontFamily.gabrito);
+
+    --toastify-text-color-light: #757575;
+    --toastify-text-color-dark: #fff;
+
+    --toastify-text-color-info: #fff;
+    --toastify-text-color-success: #fff;
+    --toastify-text-color-warning: #fff;
+    --toastify-text-color-error: #fff;
+    --toastify-spinner-color: #616161;
+    --toastify-spinner-color-empty-area: #e0e0e0;
+  }
+  .Toastify__toast-icon {
+    @apply [&_svg]:!w-7 !important;
+  }
+  body {
+    @apply font-gabrito bg-zinc-100;
+  }
+}
+@layer components {
+  .heading-3 {
+    @apply text-4xl font-semibold;
+  }
+  .heading-4 {
+    @apply text-2xl font-semibold;
+  }
+  .heading-6 {
+    @apply text-lg font-semibold;
+  }
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+  .ay-center {
+    @apply absolute top-1/2 -translate-y-1/2;
+  }
+  .btn {
+    @apply px-10 py-2 font-semibold font-gabrito text-base rounded-md disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+  .btn-sm{
+    @apply text-sm px-6 font-medium py-2;
+  }
+  .btn-green {
+    @apply btn bg-green-500 text-white;
+  }
+  .btn-primary {
+    @apply btn bg-amber-500 text-white;
+  }
+  .btn-red {
+    @apply btn bg-red-500 text-white;
+  }
+  .btn-sm{
+    @apply text-sm px-6 font-medium py-2;
+  }
+  .text-muted {
+    @apply text-black opacity-70 text-base;
+  }
+  .action-btn {
+    @apply w-10 h-10 cursor-pointer rounded-full text-xl text-primary-blue bg-zinc-200 hover:bg-zinc-300  flex-center;
+  }
+  .action-sm {
+    @apply w-8 h-8;
+  }
+  .hoverable-img {
+    @apply hover:scale-110 duration-200 object-cover w-full h-full;
+  }
+  .input-field {
+    @apply w-full py-2 px-4 rounded-md border  focus:outline-amber-400 text-black text-base;
+  }
+  .pagination-item-style {
+    @apply flex justify-center items-center  border rounded-md border-amber-500 text-amber-600 cursor-pointer hover:bg-amber-500 hover:text-white;
+  }
+  .disabled-item {
+    @apply opacity-50 hover:bg-white hover:text-amber-500;
+  }
+  .pagination-item-style a,.disabled-item a{
+    @apply w-full h-full flex-center px-4 py-1;
+  }
+  .skeleton {
+    @apply bg-zinc-300 animate-pulse;
+  }
+  .form-error{
+    @apply text-red-600 text-sm;
+  }
+}
