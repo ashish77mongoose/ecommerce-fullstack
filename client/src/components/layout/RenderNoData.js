@@ -1,5 +1,5 @@
 import React from "react";
-const RenderNoData = ({ title, subtitle, index, className }) => {
+const RenderNoData = ({ title, subtitle, className }) => {
   return (
     <div className={`text-center py-20 ${className}`}>
       <div className="flex justify-center items-center text-center flex-col ">

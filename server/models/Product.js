@@ -1,52 +1,57 @@
 import mongoose from "mongoose";
 
-const productSchema = mongoose.Schema({
+const productSchema = mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     description: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     richDescription: {
-        type: String,
-        default: ''
+      type: String,
+      default: "",
     },
-    images: [{
-        type: String
-    }],
+    images: [
+      {
+        type: String,
+      },
+    ],
     brand: {
-        type: String,
-        default: ''
+      type: String,
+      default: "",
     },
-    price : {
-        type: Number,
-        default:0
+    price: {
+      type: Number,
+      default: 0,
     },
-    category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category',
-        required:true
+    subCategory: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "SubCategory",
+      required: true,
     },
     countInStock: {
-        type: Number,
-        required: true,
-        min: 0,
-        max: 255
+      type: Number,
+      required: true,
+      min: 0,
+      max: 255,
     },
     rating: {
-        type: Number,
-        default: 0,
+      type: Number,
+      default: 0,
     },
     numReviews: {
-        type: Number,
-        default: 0,
+      type: Number,
+      default: 0,
     },
     isFeatured: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
-},{ timestamps: true })
+  },
+  { timestamps: true }
+);
 
 export default mongoose.model("Product", productSchema);

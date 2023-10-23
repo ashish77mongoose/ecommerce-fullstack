@@ -3,6 +3,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import { ToastContainer, toast } from "react-toastify";
 import {
+  AllSubCategory,
+  Category,
   ForgotPassword,
   Home,
   Login,
@@ -15,6 +17,7 @@ import { setUser } from "./redux/features/authSlice";
 import ToastMsg from "./components/toast/ToastMsg";
 import { useEffect } from "react";
 import MainLayout from "./components/layout/MainLayout";
+import DashboardLayout from "./components/layout/DashboardLayout";
 function App() {
   const dispatch = useDispatch();
   const getUserData = async () => {
@@ -42,7 +45,10 @@ function App() {
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
-            
+            <Route path="/category/:id" element={<AllSubCategory />} />
+          </Route>
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={<Category />} />
           </Route>
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />

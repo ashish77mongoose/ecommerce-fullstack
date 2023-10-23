@@ -17,10 +17,12 @@ API.interceptors.request.use((req) => {
 
 // Category API
 
-export const getCategories = () => API.get("category");
+export const getCategories = () => API.get("categories");
+export const getAllSubCategories = (formData) =>
+  API.post("sub-categories", formData);
 
 // Product API
-export const getProducts = () => API.get("product");
+export const getProducts = () => API.get("products");
 
 // User
 export const login = (formData) => API.post(`auth/login`, formData);
@@ -32,4 +34,3 @@ export const resetPassword = (formData) =>
 export const uploadProfileImage = (id, formData) =>
   API.post(`auth/profileImage/${id}`, formData);
 export const getUser = () => API.get("auth/profile");
-

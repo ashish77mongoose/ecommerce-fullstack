@@ -41,6 +41,30 @@
   body {
     @apply font-gabrito bg-zinc-100;
   }
+  tbody {
+    display: block;
+    max-height: 500px;
+    overflow: auto;
+  }
+  svg {
+    color: inherit;
+    font-size: inherit;
+  }
+  thead,
+  tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  th {
+    @apply py-4 px-2 text-base  font-semibold first:text-left first:pl-4 text-black bg-amber-200 last:rounded-tr-[8px] first:rounded-tl-[8px];
+  }
+  td {
+    @apply align-middle py-4 px-2 text-sm first:text-left first:pl-4;
+  }
+  tr {
+    @apply border-b hover:bg-black text-center border-b-zinc-700 last:border-b-0;
+  }
 }
 @layer components {
   .heading-3 {
@@ -61,7 +85,7 @@
   .btn {
     @apply px-10 py-2 font-semibold font-gabrito text-base rounded-md disabled:opacity-60 disabled:cursor-not-allowed;
   }
-  .btn-sm{
+  .btn-sm {
     @apply text-sm px-6 font-medium py-2;
   }
   .btn-green {
@@ -73,7 +97,7 @@
   .btn-red {
     @apply btn bg-red-500 text-white;
   }
-  .btn-sm{
+  .btn-sm {
     @apply text-sm px-6 font-medium py-2;
   }
   .text-muted {
@@ -97,16 +121,17 @@
   .disabled-item {
     @apply opacity-50 hover:bg-white hover:text-amber-500;
   }
-  .pagination-item-style a,.disabled-item a{
+  .pagination-item-style a,
+  .disabled-item a {
     @apply w-full h-full flex-center px-4 py-1;
   }
   .skeleton {
     @apply bg-zinc-300 animate-pulse;
   }
-  .form-error{
+  .form-error {
     @apply text-red-600 text-sm;
   }
-  .border-c{
+  .border-c {
     @apply border border-zinc-300;
   }
 }

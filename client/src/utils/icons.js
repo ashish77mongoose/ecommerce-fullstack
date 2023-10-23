@@ -1,8 +1,27 @@
 import React from "react";
-import { BiEditAlt, BiTrash } from "react-icons/bi";
-import { IoMdClose } from "react-icons/io";
-import { BsCheckLg, BsReply } from "react-icons/bs";
-import { HiOutlineChevronDown, HiChevronUp } from "react-icons/hi";
+import { FiTrash2 } from "react-icons/fi";
+import {
+  BiDollarCircle,
+  BiEditAlt,
+  BiHomeAlt2,
+  BiInfoCircle,
+  BiLogOutCircle,
+  BiSearch,
+  BiTrash,
+} from "react-icons/bi";
+import { IoIosArrowRoundBack, IoMdClose } from "react-icons/io";
+import {
+  BsCheckLg,
+  BsChevronDown,
+  BsChevronLeft,
+  BsChevronRight,
+  BsFillBoxFill,
+  BsFillCheckCircleFill,
+  BsReply,
+  BsThreeDotsVertical,
+  BsWallet2,
+} from "react-icons/bs";
+import { HiOutlineChevronDown, HiChevronUp, HiMenu } from "react-icons/hi";
 import {
   AiFillCamera,
   AiFillEye,
@@ -11,6 +30,8 @@ import {
   AiFillLike,
   AiOutlineHeart,
   AiOutlineLike,
+  AiOutlineStar,
+  AiOutlineUnorderedList,
 } from "react-icons/ai";
 export const reactIcons = {
   trash: <BiTrash />,
@@ -27,4 +48,22 @@ export const reactIcons = {
   close: <IoMdClose />,
   heartFill: <AiFillHeart />,
   heartOutline: <AiOutlineHeart />,
+  home: <BiHomeAlt2 />,
+  logout: <BiLogOutCircle />,
+  list: <AiOutlineUnorderedList />,
+  arrowleft: <BsChevronLeft />,
+  arrowright: <BsChevronRight />,
+  arrowdown: <BsChevronDown />,
+  success: <BsFillCheckCircleFill />,
+  info: <BiInfoCircle />,
+  delete: <FiTrash2 />,
+  search: <BiSearch />,
+  menu: <HiMenu />,
+  threeDots: <BsThreeDotsVertical />,
+  eyes: <AiFillEye />,
+  goback: <IoIosArrowRoundBack />,
+  star: <AiOutlineStar />,
+  profit: <BiDollarCircle />,
+  vault: <BsWallet2 />,
+  product: <BsFillBoxFill />,
 };

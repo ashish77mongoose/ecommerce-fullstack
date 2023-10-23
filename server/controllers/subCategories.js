@@ -1,13 +1,15 @@
 import Category from "../models/Category.js";
+import SubCategory from "../models/SubCategory.js";
 import fs from "fs";
-export const createCategory = async (req, res) => {
+export const createSubCategory = async (req, res) => {
   const file = req.file;
   if (!file) return res.status(400).json({ message: "No icon found" });
   const fileName = file.filename;
-  let category = new Category({
+  let category = new SubCategory({
     name: req.body.name,
     icon: fileName,
     color: req.body.color,
+    category: req.body.category,
     description: req.body.description,
   });
   category = await category.save();
@@ -17,8 +19,8 @@ export const createCategory = async (req, res) => {
 
   res.status(201).json(category);
 };
-export const getCategory = async (req, res) => {
-  const category = await Category.findById(req.params.id);
+export const getSubCategory = async (req, res) => {
+  const category = await SubCategory.findById(req.params.id);
   if (!category) {
     res
       .status(500)
@@ -26,16 +28,17 @@ export const getCategory = async (req, res) => {
   }
   res.status(200).json(category);
 };
-export const getAllCategory = async (req, res) => {
-  const categoryList = await Category.find();
+export const getAllSubCategory = async (req, res) => {
+  const { id } = req.body;
+  const categoryList = await SubCategory.find({ category: id });
 
   if (!categoryList) {
     res.status(500).json({ success: false });
   }
   res.status(200).json(categoryList);
 };
-export const updateCategory = async (req, res) => {
-  const oldCategory = await Category.findById(req.params.id);
+export const updateSubCategory = async (req, res) => {
+  const oldCategory = await SubCategory.findById(req.params.id);
   let iconToSet;
   const file = req.file;
   if (file) {
@@ -47,12 +50,13 @@ export const updateCategory = async (req, res) => {
   } else {
     iconToSet = req.body.icon;
   }
-  const category = await Category.findByIdAndUpdate(
+  const category = await SubCategory.findByIdAndUpdate(
     req.params.id,
     {
       name: req.body.name,
       icon: iconToSet,
       color: req.body.color,
+      category: req.body.category,
       description: req.body.description,
     },
     { new: true }
@@ -62,8 +66,8 @@ export const updateCategory = async (req, res) => {
     return res.status(400).json({ message: "the category cannot be created!" });
   res.status(201).json(category);
 };
-export const deleteCategory = async (req, res) => {
-  Category.findByIdAndRemove(req.params.id)
+export const deleteSubCategory = async (req, res) => {
+  SubCategory.findByIdAndRemove(req.params.id)
     .then((category) => {
       if (category) {
         return res

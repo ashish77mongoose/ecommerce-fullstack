@@ -4,6 +4,8 @@ import Profile from "./Profile";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import Home from "./Home";
+import AllSubCategory from "./AllSubCategory";
+import Category from "./dashboard/Category";
 
 export {
   Login,
@@ -11,5 +13,7 @@ export {
   Profile,
   ForgotPassword,
   ResetPassword,
-  Home
+  Home,
+  Category,
+  AllSubCategory,
 };
