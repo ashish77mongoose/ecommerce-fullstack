@@ -31,7 +31,7 @@ const AllSubCategory = () => {
         <header className="py-4">
           <h4 className="heading-3">Brand new categories</h4>
         </header>
-        <div className="grid grid-cols-4">
+        <div className="grid grid-cols-4 gap-4">
           {subCategories.length > 0 ? (
             subCategories.map((category) => (
               <div className="shadow-card border-c rounded-lg">

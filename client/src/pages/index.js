@@ -5,6 +5,7 @@ import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import Home from "./Home";
 import AllSubCategory from "./AllSubCategory";
+import ProductDetail from "./ProductDetail";
 import Category from "./dashboard/Category";
 
 export {
@@ -16,4 +17,5 @@ export {
   Home,
   Category,
   AllSubCategory,
+  ProductDetail,
 };

@@ -8,6 +8,7 @@ import {
   ForgotPassword,
   Home,
   Login,
+  ProductDetail,
   Register,
   ResetPassword,
 } from "./pages";
@@ -46,6 +47,7 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
             <Route path="/category/:id" element={<AllSubCategory />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
           </Route>
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<Category />} />

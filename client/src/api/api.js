@@ -22,7 +22,8 @@ export const getAllSubCategories = (formData) =>
   API.post("sub-categories", formData);
 
 // Product API
-export const getProducts = () => API.get("products");
+export const getFeaturedProducts = () => API.get("products/featured");
+export const getSingleProduct = (id) => API.get(`products/${id}`);
 
 // User
 export const login = (formData) => API.post(`auth/login`, formData);
