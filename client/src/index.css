@@ -63,7 +63,7 @@
     @apply align-middle py-4 px-2 text-sm first:text-left first:pl-4;
   }
   tr {
-    @apply border-b hover:bg-black text-center border-b-zinc-700 last:border-b-0;
+    @apply border-b hover:bg-gray-200 text-center border-b-zinc-200 last:border-b-0;
   }
 }
 @layer components {

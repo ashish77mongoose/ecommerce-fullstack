@@ -17,6 +17,7 @@ import {
   BsChevronRight,
   BsFillBoxFill,
   BsFillCheckCircleFill,
+  BsPlusLg,
   BsReply,
   BsThreeDotsVertical,
   BsWallet2,
@@ -31,10 +32,13 @@ import {
   AiFillStar,
   AiOutlineHeart,
   AiOutlineLike,
+  AiOutlineMinus,
   AiOutlineStar,
   AiOutlineUnorderedList,
 } from "react-icons/ai";
 export const reactIcons = {
+    plus:<BsPlusLg/>,
+    minus:<AiOutlineMinus/>,
   trash: <BiTrash />,
   edit: <BiEditAlt />,
   eyeslash: <AiFillEyeInvisible />,

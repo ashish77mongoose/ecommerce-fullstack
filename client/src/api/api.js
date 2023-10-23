@@ -18,11 +18,13 @@ API.interceptors.request.use((req) => {
 // Category API
 
 export const getCategories = () => API.get("categories");
+export const addCategory = (formData) => API.post("categories",formData);
 export const getAllSubCategories = (formData) =>
   API.post("sub-categories", formData);
 
 // Product API
 export const getFeaturedProducts = () => API.get("products/featured");
+export const getAllProducts = () => API.get("products");
 export const getSingleProduct = (id) => API.get(`products/${id}`);
 
 // User

@@ -5,12 +5,15 @@ import { ToastContainer, toast } from "react-toastify";
 import {
   AllSubCategory,
   Category,
+  Dashboard,
   ForgotPassword,
   Home,
   Login,
+  Product,
   ProductDetail,
   Register,
   ResetPassword,
+  SubCategory,
 } from "./pages";
 import { getUser } from "./api/api";
 import { useDispatch } from "react-redux";
@@ -50,7 +53,10 @@ function App() {
             <Route path="/product/:id" element={<ProductDetail />} />
           </Route>
           <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<Category />} />
+            <Route index element={<Dashboard />} />
+            <Route path="categories" element={<Category />} />
+            <Route path="categories/:id" element={<SubCategory />} />
+            <Route path="products" element={<Product />} />
           </Route>
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />

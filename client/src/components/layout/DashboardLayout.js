@@ -4,7 +4,7 @@ import { reactIcons } from "../../utils/icons";
 import { links } from "./../../utils/constants";
 
 const DashboardLayout = () => {
-  const [sideBarOpen, setSidebarOpen] = useState(false);
+  const [sideBarOpen, setSidebarOpen] = useState(true);
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden">
       <div className="sticky flex-shrink-0 z-50 top-0  h-[70px] flex justify-between gap-6 items-center px-8 border-b border-b-zinc-200">

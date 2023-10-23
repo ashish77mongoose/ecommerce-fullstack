@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { getAllProducts, getCategories } from "../../api/api";
+import { getCategories } from "../../api/api";
 import { toast } from "react-toastify";
 import ToastMsg from "../../components/toast/ToastMsg";
-import { imageRender, numberWithCommas } from "../../utils/helpers";
+import { imageRender } from "../../utils/helpers";
 import ActionButton from "../../components/button/ActionButton";
 import { reactIcons } from "../../utils/icons";
 import DeleteButton from "../../components/button/DeleteButton";
+import { useParams } from "react-router-dom";
 
-const Product = () => {
-    const [products, setProducts] = useState([]);
-    const getAllProductsData = async () => {
+const SubCategory = () => {
+    const {id}=useParams();
+    const [categories, setCategories] = useState([]);
+    const getAllCategories = async () => {
         try {
-            const res = await getAllProducts();
+            const res = await getCategories();
             const { status, data } = res;
             if (status >= 200 && status <= 300) {
-                setProducts(data);
+                setCategories(data);
             } else {
                 toast.error(<ToastMsg title={data.message} />);
             }
@@ -23,12 +25,12 @@ const Product = () => {
         }
     };
     useEffect(() => {
-        getAllProductsData();
+        getAllCategories();
     }, []);
     return (
         <div>
             <header className="mb-4">
-                <h3 className="heading-3">All Products </h3>
+                <h3 className="heading-3">All Categories </h3>
             </header>
             <div>
                 <div className="overflow-x-auto w-full">
@@ -38,25 +40,23 @@ const Product = () => {
                                 <th className="w-[80px]">Sr.No</th>
                                 <th>Name</th>
                                 <th>Description</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
+                                <th>Color</th>
                                 <th>Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map((product,index)=>(
+                            {categories.map((category,index)=>(
                                 <tr>
                                     <td className="w-[80px]" >{index+1}</td>
-                                    <td>{product.name}</td>
-                                    <td>{product.description}</td>
-                                    <td>{product.countInStock}</td>
-                                    <td>Rs. {numberWithCommas(product.price)}</td>
+                                    <td>{category.name}</td>
+                                    <td>{category.description}</td>
+                                    <td>{category.color}</td>
                                     <td>
                                         <div className="flex justify-center">
 
                                         <div className="w-14 h-14">
-                                            <img className="w-full h-full object-contain" src={imageRender(product?.images[0])} alt={product.name} />
+                                            <img className="w-full h-full object-contain" src={imageRender(category?.icon)} alt={category.name} />
 
                                         </div>
                                         </div>
@@ -77,4 +77,4 @@ const Product = () => {
     );
 };
 
-export default Product;
+export default SubCategory;

@@ -2,34 +2,32 @@ import React, { useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import TextInput from "../forms/TextInput";
-import { addUserDetails } from "../../api/api";
-import { updateUser } from "../../redux/features/authSlice";
+import { addCategory } from "../../api/api";
 import { toast } from "react-toastify";
 import ToastMsg from "../toast/ToastMsg";
-import { useDispatch } from "react-redux";
 import TextArea from "../forms/TextArea";
+import { colorsOptions } from "../../utils/constants";
 const initialState = {
-    address: "",
+    name: "",
+    color:colorsOptions[0],
     description: "",
-    mobile: "",
+    icon: "",
 };
-const AddDetails = ({ isOpen, closeModal,user, isExtraInfo }) => {
-    const dispatch = useDispatch();
+const AddCategory = ({ isOpen, closeModal }) => {
     const [form, setForm] = useState(initialState);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
     };
-    const handleUserDetailSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await addUserDetails(form);
+            const res = await addCategory(form);
             const { status, data } = res;
             if (status >= 200 && status < 300) {
                 toast.success(<ToastMsg title={`Added Successfully`} />);
-                dispatch(updateUser(form));
                 setForm(initialState);
-                closeModal()
+                closeModal();
             } else {
                 toast.error(<ToastMsg title={data.message} />);
             }
@@ -38,19 +36,10 @@ const AddDetails = ({ isOpen, closeModal,user, isExtraInfo }) => {
             toast.error(<ToastMsg title={error?.response?.data?.message} />);
         }
     };
-    useEffect(() => {
-        if (isExtraInfo) {
-            setForm({
-                address: user?.address || "",
-                description: user?.description || "",
-                mobile: user?.mobile || "",
-            });
-        }
-    }, [isExtraInfo]);
 
     return (
         <Transition appear show={isOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={closeModal}>
+            <Dialog as="div" className="relative z-[1000]" onClose={closeModal}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -74,53 +63,56 @@ const AddDetails = ({ isOpen, closeModal,user, isExtraInfo }) => {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel onSubmit={handleUserDetailSubmit} as="form" className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                            <Dialog.Panel
+                                onSubmit={handleSubmit}
+                                as="form"
+                                className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+                            >
                                 <Dialog.Title
                                     as="h4"
                                     className="heading-4 text-center"
                                 >
-                                    Add Your Details
+                                    Add Category
                                 </Dialog.Title>
                                 <div className="mt-2">
-                                    <div
-                                        
-                                        className=" w-full"
-                                    >
-                                        <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                                    <div className=" w-full">
+                                        <div className="grid grid-cols-1 gap-x-4 gap-y-2">
                                             <TextInput
-                                                name="mobile"
-                                                label={"Mobile"}
-                                                placeholder="Enter mobile Number"
-                                                value={form.mobile}
+                                                name="name"
+                                                label={"Name of the category"}
+                                                placeholder="Enter name"
+                                                value={form.name}
                                                 onChange={handleChange}
                                             />
-                                            <TextInput
-                                                name="address"
-                                                label={"Address"}
-                                                placeholder="Enter your address"
-                                                value={form.address}
-                                                onChange={handleChange}
-                                            />
-                                            <div className="col-span-2">
+                                            <div className="flex flex-col gap-1">
+                                                <label htmlFor="">Choose color</label>
+                                                <div className="flex gap-2 flex-wrap">
+                                                    {colorsOptions.map((color)=>(
+                                                        <div onClick={()=>setForm({...form,color})}  className={`w-6 cursor-pointer h-6 rounded-full border flex-center flex-shrink-0 p-[2px] `} style={{borderColor:form.color===color? color:'transparent'}}>
+                                                            <div className={`w-full h-full m-1 rounded-full flex-shrink-0  `} style={{background:color}}></div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <div className="">
                                                 <TextArea
                                                     name="description"
-                                                    label={"About"}
-                                                    placeholder="Describe yourself"
+                                                    label={"Description"}
+                                                    placeholder="Write about category"
                                                     value={form.description}
                                                     onChange={handleChange}
                                                 />
                                             </div>
-                                            
+                                            <div className="col-span-1 flex flex-col gap-1">
+                                               <label htmlFor="">Choose image</label>
+                                                <input type="file" name="" id="" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="mt-4">
-                                <button className="btn-primary">
-                                                    {isExtraInfo
-                                                        ? "Update Details"
-                                                        : "Add Details"}{" "}
-                                                </button>
+                                    <button className="btn-primary">Add</button>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
@@ -131,4 +123,4 @@ const AddDetails = ({ isOpen, closeModal,user, isExtraInfo }) => {
     );
 };
 
-export default AddDetails;
+export default AddCategory;
