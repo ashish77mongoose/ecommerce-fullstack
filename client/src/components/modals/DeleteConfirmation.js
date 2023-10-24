@@ -1,27 +1,8 @@
 import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { deletePost } from "../../api/api";
-import ToastMsg from "../toast/ToastMsg";
-import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
 
-const DeleteConfirmation = ({ isOpen, closeModal, id }) => {
-    const dispatch=useDispatch()
-  const handleDelete = async (id) => {
-    try {
-      const res = await deletePost(id);
-      const { status, data } = res;
-      if (status >= 200 && status < 300) {
-        toast.success(<ToastMsg title={data.message} />);
-        closeModal();
-      } else {
-        toast.error(<ToastMsg title={data.message} />);
-      }
-    } catch (error) {
-      toast.error(<ToastMsg title={error?.response?.data?.message} />);
-    }
-  };
+const DeleteConfirmation = ({ isOpen, closeModal, handleDelete, title }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -53,16 +34,11 @@ const DeleteConfirmation = ({ isOpen, closeModal, id }) => {
                 className="w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all"
               >
                 <Dialog.Title as="h4" className="heading-4 text-center">
-                  Are you sure you want to delete this post?
+                  Are you sure you want to delete this {title}?
                 </Dialog.Title>
 
                 <div className="mt-4 flex justify-center gap-6 items-center">
-                  <button
-                    onClick={() => {
-                      handleDelete(id);
-                    }}
-                    className="btn-primary"
-                  >
+                  <button onClick={handleDelete} className="btn-primary">
                     Yes
                   </button>
                   <button onClick={closeModal} className="btn-red">

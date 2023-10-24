@@ -33,7 +33,11 @@ const Navbar = () => {
                   >
                     <img
                       className="w-10 h-10 object-cover rounded-full"
-                      src={ user.profileImage?`${process.env.REACT_APP_DEV_API}${user.profileImage}`:'/images/user.png'}
+                      src={
+                        user.profileImage
+                          ? `${process.env.REACT_APP_DEV_API}${user.profileImage}`
+                          : "/images/user.png"
+                      }
                       alt=""
                     />
                     <span>{user?.fullName}</span>
@@ -76,6 +80,20 @@ const Navbar = () => {
                               } group flex w-full items-center rounded-md px-2 py-2 text-base`}
                             >
                               Profile
+                            </button>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={() => navigate(`/dashboard`)}
+                              className={`${
+                                active
+                                  ? "bg-violet-500 text-white"
+                                  : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-base`}
+                            >
+                              Go to dashboard
                             </button>
                           )}
                         </Menu.Item>

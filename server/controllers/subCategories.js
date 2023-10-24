@@ -67,6 +67,10 @@ export const updateSubCategory = async (req, res) => {
   res.status(201).json(category);
 };
 export const deleteSubCategory = async (req, res) => {
+  const oldSubCategory = await SubCategory.findById(req.params.id);
+  if (oldSubCategory) {
+    fs.unlinkSync("./public/uploads/" + oldSubCategory.icon);
+  }
   SubCategory.findByIdAndRemove(req.params.id)
     .then((category) => {
       if (category) {

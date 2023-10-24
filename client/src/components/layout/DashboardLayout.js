@@ -14,7 +14,7 @@ const DashboardLayout = () => {
         <div className="flex gap-2 items-center">
           <div className="flex gap-2 items-center">
             <span className="font-semibold text-base">Admin Patel</span>
-            <div className="w-12 h-12 rounded-full cursor-pointer bg-amber-500 flex-center">
+            <div className="w-12 h-12 rounded-full cursor-pointer bg-amber-200 flex-center">
               <span className="text-18   font-semibold capitalize">A</span>
             </div>
           </div>
@@ -23,7 +23,7 @@ const DashboardLayout = () => {
       <div className="h-[calc(100%-71px)] flex flex-1">
         <div
           className={`relative border-r border-r-zinc-200 duration-300    h-full flex flex-col  justify-between py-4 gap-3 ${
-            sideBarOpen ? "w-[250px] items-start" : "w-[72px]  items-center"
+            sideBarOpen ? "w-[235px] items-start" : "w-[72px]  items-center"
           }`}
         >
           <div
@@ -39,8 +39,8 @@ const DashboardLayout = () => {
                     to={link.path}
                     end
                     className={({ isActive }) =>
-                      ` py-3 w-full px-2 text-[16px] md:text-[32px] gap-4 cursor-pointer flex  items-center hover:bg-amber-500 rounded-md md:rounded-lg  ${
-                        isActive && "bg-amber-500"
+                      ` py-3 w-full px-2 text-[16px] md:text-[32px] gap-4 cursor-pointer flex  items-center hover:bg-amber-200 rounded-md md:rounded-lg  ${
+                        isActive && "bg-amber-200"
                       }`
                     }
                   >
@@ -54,12 +54,12 @@ const DashboardLayout = () => {
                     to={link.path}
                     end
                     className={({ isActive }) =>
-                      `w-[50px] flex justify-center items-center  h-[50px] text-[16px] md:text-[32px] cursor-pointer  hover:bg-amber-400 rounded-md md:rounded-lg  ${
-                        isActive && "[&_span]:bg-amber-500"
+                      `w-[50px] flex justify-center items-center  h-[50px] text-[16px] md:text-[32px] cursor-pointer  hover:bg-amber-200 rounded-md md:rounded-lg  ${
+                        isActive && "[&_span]:bg-amber-200"
                       }`
                     }
                   >
-                    <span className="w-[30px] h-[30px] md:w-[50px] md:h-[50px] text-[16px] md:text-[32px] cursor-pointer flex-center hover:bg-amber-400 rounded-md md:rounded-lg ">
+                    <span className="w-[30px] h-[30px] md:w-[50px] md:h-[50px] text-[16px] md:text-[32px] cursor-pointer flex-center hover:bg-amber-200 rounded-md md:rounded-lg ">
                       {link.icon}
                     </span>
                   </NavLink>
@@ -69,17 +69,20 @@ const DashboardLayout = () => {
           </div>
           {sideBarOpen ? (
             <div className="px-4 w-full">
-              <button className=" flex py-2 w-full px-2 flex-1 text-[16px] md:text-[32px] gap-4 cursor-pointer  items-center hover:bg-amber-500 rounded-md md:rounded-lg ">
-                <span className="text-[32px] ">{reactIcons.logout}</span>
-                <span className="text-[16px]  ">Logout</span>
-              </button>
+              <Link
+                to="/"
+                className=" flex py-2 w-full px-2 flex-1 text-[16px] md:text-[32px] gap-4 cursor-pointer  items-center hover:bg-amber-200 rounded-md md:rounded-lg "
+              >
+                <span className="text-[32px] ">{reactIcons.goback}</span>
+                <span className="text-[16px]  ">Go to Web</span>
+              </Link>
             </div>
           ) : (
-            <button className="">
+            <Link to="/" className="">
               <span className="w-[30px] h-[30px] md:w-[50px] md:h-[50px] text-[16px] md:text-[32px] cursor-pointer flex-center hover:bg-red-300 hover:text-red-800 rounded-md md:rounded-lg  ">
-                {reactIcons.logout}
+                {reactIcons.goback}
               </span>
-            </button>
+            </Link>
           )}
           <button
             onClick={() => setSidebarOpen((prev) => !prev)}

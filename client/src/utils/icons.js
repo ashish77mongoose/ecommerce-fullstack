@@ -37,8 +37,8 @@ import {
   AiOutlineUnorderedList,
 } from "react-icons/ai";
 export const reactIcons = {
-    plus:<BsPlusLg/>,
-    minus:<AiOutlineMinus/>,
+  plus: <BsPlusLg />,
+  minus: <AiOutlineMinus />,
   trash: <BiTrash />,
   edit: <BiEditAlt />,
   eyeslash: <AiFillEyeInvisible />,

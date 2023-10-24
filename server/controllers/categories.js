@@ -63,12 +63,16 @@ export const updateCategory = async (req, res) => {
   res.status(201).json(category);
 };
 export const deleteCategory = async (req, res) => {
+  const oldCategory = await Category.findById(req.params.id);
+  if (oldCategory) {
+    fs.unlinkSync("./public/uploads/" + oldCategory.icon);
+  }
   Category.findByIdAndRemove(req.params.id)
     .then((category) => {
       if (category) {
         return res
           .status(200)
-          .json({ success: true, message: "the category is deleted!" });
+          .json({ success: true, message: "The category is deleted!" });
       } else {
         return res
           .status(404)

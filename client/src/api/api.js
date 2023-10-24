@@ -18,7 +18,24 @@ API.interceptors.request.use((req) => {
 // Category API
 
 export const getCategories = () => API.get("categories");
-export const addCategory = (formData) => API.post("categories",formData);
+export const addCategory = (formData) => API.post("categories", formData);
+export const deleteCategory = (id) => API.delete(`categories/${id}`);
+export const updateCategory = (id, formData) =>
+  API.put(`categories/${id}`, formData);
+
+// Products
+export const getProducts = () => API.get("products");
+export const addProduct = (formData) => API.post("products", formData);
+export const deleteProduct = (id) => API.delete(`products/${id}`);
+export const updateProduct = (id, formData) =>
+  API.put(`products/${id}`, formData);
+
+// Sub Category
+export const addSubCategory = (formData) =>
+  API.post("sub-categories/add", formData);
+export const deleteSubCategory = (id) => API.delete(`sub-categories/${id}`);
+export const updateSubCategory = (id, formData) =>
+  API.put(`sub-categories/${id}`, formData);
 export const getAllSubCategories = (formData) =>
   API.post("sub-categories", formData);
 

@@ -2,20 +2,27 @@ import React, { useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import TextInput from "../forms/TextInput";
-import { addCategory, updateCategory } from "../../api/api";
+import {
+  addCategory,
+  addSubCategory,
+  updateCategory,
+  updateSubCategory,
+} from "../../api/api";
 import { toast } from "react-toastify";
 import ToastMsg from "../toast/ToastMsg";
 import TextArea from "../forms/TextArea";
 import { colorsOptions } from "../../utils/constants";
 import FileUpload from "../forms/FileUpload";
 import { imageRender } from "../../utils/helpers";
-const initialState = {
-  name: "",
-  color: colorsOptions[0],
-  description: "",
-  icon: "",
-};
-const AddCategory = ({ isOpen, closeModal, category }) => {
+
+const AddSubCategory = ({ isOpen, closeModal, subCategory, id }) => {
+  const initialState = {
+    name: "",
+    color: colorsOptions[0],
+    description: "",
+    icon: "",
+    category: id,
+  };
   const [form, setForm] = useState(initialState);
   const [image, setImage] = useState(null);
   const handleChange = (e) => {
@@ -31,7 +38,7 @@ const AddCategory = ({ isOpen, closeModal, category }) => {
     e.preventDefault();
     const formData = new FormData();
 
-    if (category) {
+    if (subCategory) {
       if (image) {
         for (const [key, value] of Object.entries(form)) {
           formData.append(key, value);
@@ -46,12 +53,12 @@ const AddCategory = ({ isOpen, closeModal, category }) => {
       formData.append("icon", image[0]);
     }
     try {
-      const res = category
-        ? await updateCategory(
-            category._id,
-            category && image ? formData : form
+      const res = subCategory
+        ? await updateSubCategory(
+            subCategory._id,
+            subCategory && image ? formData : form
           )
-        : await addCategory(formData);
+        : await addSubCategory(formData);
       const { status, data } = res;
       if (status >= 200 && status < 300) {
         toast.success(<ToastMsg title={`Added Successfully`} />);
@@ -65,15 +72,21 @@ const AddCategory = ({ isOpen, closeModal, category }) => {
     }
   };
   useEffect(() => {
-    if (category) {
+    if (subCategory) {
       setForm({
-        name: category.name,
-        color: category.color,
-        description: category.description,
-        icon: category.icon,
+        name: subCategory.name,
+        color: subCategory.color,
+        description: subCategory.description,
+        icon: subCategory.icon,
+        category: subCategory.category,
       });
     }
-  }, [category]);
+  }, [subCategory]);
+  useEffect(() => {
+    if (id) {
+      setForm({ ...form, category: id });
+    }
+  }, [id]);
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -114,7 +127,7 @@ const AddCategory = ({ isOpen, closeModal, category }) => {
                     <div className="grid grid-cols-1 gap-x-4 gap-y-2">
                       <TextInput
                         name="name"
-                        label={"Name of the category"}
+                        label={"Name of the subCategory"}
                         placeholder="Enter name"
                         value={form.name}
                         onChange={handleChange}
@@ -143,19 +156,19 @@ const AddCategory = ({ isOpen, closeModal, category }) => {
                         <TextArea
                           name="description"
                           label={"Description"}
-                          placeholder="Write about category"
+                          placeholder="Write about subCategory"
                           value={form.description}
                           onChange={handleChange}
                         />
                       </div>
                       <div className="col-span-1 flex flex-col gap-1">
                         <FileUpload image={image} setImage={setImage} />
-                        {category && !image && (
+                        {subCategory && !image && (
                           <div className="relative">
                             <img
                               className="w-24 h-24 object-contain"
                               src={imageRender(form.icon)}
-                              alt={category.name}
+                              alt={subCategory.name}
                             />
                           </div>
                         )}
@@ -166,7 +179,7 @@ const AddCategory = ({ isOpen, closeModal, category }) => {
 
                 <div className="mt-4">
                   <button className="btn-primary">
-                    {category ? "Update" : "Add"}
+                    {subCategory ? "Update" : "Add"}
                   </button>
                 </div>
               </Dialog.Panel>
@@ -178,4 +191,4 @@ const AddCategory = ({ isOpen, closeModal, category }) => {
   );
 };
 
-export default AddCategory;
+export default AddSubCategory;
