@@ -7,8 +7,9 @@ import ActionButton from "../../components/button/ActionButton";
 import { reactIcons } from "../../utils/icons";
 import DeleteButton from "../../components/button/DeleteButton";
 import DeleteConfirmation from "../../components/modals/DeleteConfirmation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Product = () => {
+    const navigate=useNavigate()
     const[productId,setProductId]=useState(null)
   const [isConfirmedOpen, setIsConfirmedOpen] = useState(false);
   const [products, setProducts] = useState([]);
@@ -100,7 +101,7 @@ const Product = () => {
                     </td>
                     <td>
                       <div className="flex justify-center gap-2">
-                        <ActionButton>{reactIcons.edit}</ActionButton>
+                        <ActionButton onClick={()=>navigate(`update/${product._id}`)}>{reactIcons.edit}</ActionButton>
                         <DeleteButton
                           onClick={() => {
                             setProductId(product._id)

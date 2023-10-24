@@ -59,6 +59,7 @@ function App() {
             <Route path="categories/:id" element={<SubCategory />} />
             <Route path="products" element={<Product />} />
             <Route path="products/add" element={<AddProduct />} />
+            <Route path="products/update/:productId" element={<AddProduct />} />
           </Route>
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
