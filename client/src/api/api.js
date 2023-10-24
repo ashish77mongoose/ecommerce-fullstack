@@ -38,6 +38,8 @@ export const updateSubCategory = (id, formData) =>
   API.put(`sub-categories/${id}`, formData);
 export const getAllSubCategories = (formData) =>
   API.post("sub-categories", formData);
+export const getSubCategories = (formData) =>
+  API.get("sub-categories", formData);
 
 // Product API
 export const getFeaturedProducts = () => API.get("products/featured");

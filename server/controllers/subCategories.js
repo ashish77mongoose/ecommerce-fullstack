@@ -37,6 +37,14 @@ export const getAllSubCategory = async (req, res) => {
   }
   res.status(200).json(categoryList);
 };
+export const getAllSubCategories = async (req, res) => {
+    const categoryList = await SubCategory.find({});
+  
+    if (!categoryList) {
+      res.status(500).json({ success: false });
+    }
+    res.status(200).json(categoryList);
+  };
 export const updateSubCategory = async (req, res) => {
   const oldCategory = await SubCategory.findById(req.params.id);
   let iconToSet;

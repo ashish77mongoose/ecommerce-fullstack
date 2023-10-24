@@ -3,6 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import { ToastContainer, toast } from "react-toastify";
 import {
+    AddProduct,
   AllSubCategory,
   Category,
   Dashboard,
@@ -57,6 +58,7 @@ function App() {
             <Route path="categories" element={<Category />} />
             <Route path="categories/:id" element={<SubCategory />} />
             <Route path="products" element={<Product />} />
+            <Route path="products/add" element={<AddProduct />} />
           </Route>
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />

@@ -8,9 +8,8 @@ import { reactIcons } from "../../utils/icons";
 import DeleteButton from "../../components/button/DeleteButton";
 import DeleteConfirmation from "../../components/modals/DeleteConfirmation";
 import { Link } from "react-router-dom";
-
 const Product = () => {
-  const [product, setProduct] = useState(null);
+    const[productId,setProductId]=useState(null)
   const [isConfirmedOpen, setIsConfirmedOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const getAllProducts = async () => {
@@ -31,12 +30,12 @@ const Product = () => {
   }, []);
   const handleDelete = async () => {
     try {
-      const res = await deleteProduct(product._id);
+      const res = await deleteProduct(productId);
       const { status, data } = res;
       if (status >= 200 && status <= 300) {
         toast.success(<ToastMsg title="Deleted Successfully" />);
-        setIsConfirmedOpen(false);
         getAllProducts();
+        setIsConfirmedOpen(false);
       } else {
         toast.error(<ToastMsg title={data.message} />);
       }
@@ -44,12 +43,13 @@ const Product = () => {
       toast.error(<ToastMsg title={error.response.data.message} />);
     }
   };
+ 
   return (
     <>
       <div>
         <header className="mb-4 flex items-center justify-between">
           <h3 className="heading-3">All Products </h3>
-          <button className="btn-primary">Add New Product </button>
+          <Link to='add' className="btn-primary">Add New Product </Link>
         </header>
         <div>
           <div className="overflow-x-auto w-full">
@@ -61,8 +61,8 @@ const Product = () => {
                   <th>Description</th>
                   <th>Price</th>
                   <th>Quantity</th>
-                  <th>Is Featured</th>
                   <th>Brand</th>
+                  <th>Is Featured</th>
                   <th>Image</th>
                   <th>Action</th>
                 </tr>
@@ -103,7 +103,7 @@ const Product = () => {
                         <ActionButton>{reactIcons.edit}</ActionButton>
                         <DeleteButton
                           onClick={() => {
-                            setProduct(product);
+                            setProductId(product._id)
                             setIsConfirmedOpen(true);
                           }}
                         >

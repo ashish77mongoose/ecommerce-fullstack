@@ -10,6 +10,7 @@ import Category from "./dashboard/Category";
 import Dashboard from "./dashboard/Dashboard";
 import Product from "./dashboard/Product";
 import SubCategory from "./dashboard/SubCategory";
+import AddProduct from "./dashboard/AddProduct";
 
 export {
     Login,
@@ -24,4 +25,5 @@ export {
     Dashboard,
     Product,
     SubCategory,
+    AddProduct
 };

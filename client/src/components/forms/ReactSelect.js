@@ -13,10 +13,10 @@ const ReactSelect = ({ className,
      {...rest}
       formatOptionLabel={(option) => (
         <div className="
-        flex flex-row items-center gap-3">
+        flex ">
           <div>{option.flag}</div>
           <div>
-            {option.label},
+            {option.label}
             <span className="text-neutral-500 ml-1">
               {option.region}
             </span>
@@ -24,7 +24,7 @@ const ReactSelect = ({ className,
         </div>
       )}
       classNames={{
-        control: () => 'p-3 border-2',
+        control: () => 'border-1',
         input: () => 'text-lg',
         option: () => 'text-lg'
       }}
