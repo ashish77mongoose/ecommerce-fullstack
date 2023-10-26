@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { reactIcons } from "../../utils/icons";
 
-export default function MultipleFileUpload({ setImages, images }) {
-  const [imageUrls, setImageUrls] = useState(null);
+export default function MultipleFileUpload({ setImages, images}) {
+  const [imageUrls, setImageUrls] = useState([]);
   const [isFront, setIsFront] = useState(0);
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
   useEffect(() => {
     if (acceptedFiles.length > 0) {
-      setImages(acceptedFiles);
+        let files=[...images,...acceptedFiles]
+      setImages(files);
       let urls=[]
 
-      acceptedFiles.forEach((file)=>{
+      files.forEach((file)=>{
         urls.push(URL.createObjectURL(file));
       })
       setImageUrls(urls)
@@ -32,8 +33,7 @@ export default function MultipleFileUpload({ setImages, images }) {
 
   return (
     <div className="space-y-2">
-      <div className="bg-amber-100 rounded-md p-6 border border-amber-500 cursor-pointer">
-        <div {...getRootProps({ className: "dropzone" })}>
+        <div {...getRootProps({ className: "dropzone" })} className="bg-amber-100 rounded-md p-6 border border-amber-500 cursor-pointer">
           <input {...getInputProps()} />
           <div className="flex flex-col items-center gap-1 text-center">
             <span className="text-2xl text-amber-700">{reactIcons.camera}</span>
@@ -41,10 +41,8 @@ export default function MultipleFileUpload({ setImages, images }) {
             
           </div>
         </div>
-      </div>
-
       <div className="flex gap-4  flex-wrap my-4">
-        {imageUrls && (
+        {imageUrls.length>0 && (
           imageUrls.map((url ,index)=>(
             <div   key={index} className="flex flex-col gap-1 relative bg-gray-300 p-1 rounded-md">
                 <button type="button" onClick={()=>handleFrontImage(index)} className="text-2xl flex-center bg-pink-100 rounded-full w-8 h-8 text-red-500 absolute top-2 right-2">{ isFront===index? reactIcons.heartFill :  reactIcons.heartOutline}</button>
@@ -54,7 +52,7 @@ export default function MultipleFileUpload({ setImages, images }) {
           ))
         )}
       </div>
-      <p className="text-muted">click on heart to make it a front image</p>
+     {imageUrls.length>0 && <p className="text-muted">click on heart to make it a front image (only 10 images are allowed)</p>}
     </div>
   );
 }

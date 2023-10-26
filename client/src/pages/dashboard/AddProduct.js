@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import TextInput from "../../components/forms/TextInput";
 import TextArea from "../../components/forms/TextArea";
 import ReactSelect from "../../components/forms/ReactSelect";
-import { addProduct, getSubCategories } from "../../api/api";
+import { addProduct, deleteProductImage, getSingleProduct, getSubCategories, updateProduct } from "../../api/api";
 import { toast } from "react-toastify";
 import ToastMsg from "../../components/toast/ToastMsg";
 import MultipleFileUpload from "../../components/forms/MultipleFileUpload";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { imageRender } from "../../utils/helpers";
+import { reactIcons } from "../../utils/icons";
 const initialState = {
     name: "",
     description: "",
     richDescription: "",
-    images: [],
     brand: "",
     price: "",
     subCategory: "",
@@ -19,9 +20,11 @@ const initialState = {
     isFeatured: false,
 };
 const AddProduct = () => {
+    const { productId } = useParams();
     const navigate = useNavigate();
     const [form, setForm] = useState(initialState);
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState([]);
+    const [updateImages, setUpdateImages] = useState([]);
     const [categories, setCategories] = useState([]);
     const [select, setSelect] = useState(null);
     const handleChange = (e) => {
@@ -57,18 +60,30 @@ const AddProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-
         for (const [key, value] of Object.entries(form)) {
             formData.append(key, value);
         }
-        images.forEach((f) => {
-            formData.append("images", f);
-        });
+        if(productId){
+            if(updateImages&&updateImages.length>0){
+                updateImages.forEach((f) => {
+                    formData.append("images", f);
+                });
+            }
+        }else{
+            if(images.length>0){
+                images.forEach((f) => {
+                    formData.append("images", f);
+                });
+            }
+
+        }
+
+        
         try {
-            const res = await addProduct(formData);
+            const res = productId? await updateProduct(productId,formData)  : await addProduct(formData);
             const { status, data } = res;
             if (status >= 200 && status < 300) {
-                toast.success(<ToastMsg title={`Added Successfully`} />);
+                toast.success(<ToastMsg title={`${productId?'Updated' :'Added'} Successfully`} />);
                 handleReset();
                 navigate("/dashboard/products");
             } else {
@@ -79,6 +94,53 @@ const AddProduct = () => {
             toast.error(<ToastMsg title={error?.response?.data?.message} />);
         }
     };
+    const getProduct = async (id) => {
+        try {
+            const res = await getSingleProduct(id);
+            const { status, data } = res;
+            if (status >= 200 && status <= 300) {
+                setForm({
+                    name:data.name,
+                    description:data.description,
+                    richDescription:data.richDescription,
+                    brand:data.brand,
+                    price:data.price,
+                    subCategory:data.subCategory?._id,
+                    countInStock:data.countInStock,
+                    isFeatured:data.isFeatured,
+                });
+                setImages(data.images);
+                setSelect(categories?.find((item)=>item.value===data.subCategory?._id))
+            } else {
+                toast.error(<ToastMsg title={data.message} />);
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error(<ToastMsg title={error?.response?.data?.message} />);
+        }
+    };
+    useEffect(() => {
+        if (productId&&categories.length>0) {
+             getProduct(productId);
+        }
+    }, [productId,categories]);
+
+    const handleRemoveImage= async (url)=>{
+        try {
+            const res = await deleteProductImage(productId,{imgPath:url});
+            const { status, data } = res;
+            if (status >= 200 && status < 300) {
+                toast.success(<ToastMsg title={`Deleted Successfully`} />);
+                setImages(images.filter(image=>image!==url))
+            } else {
+                toast.error(<ToastMsg title={data.message} />);
+            }
+        } catch (error) {
+            console.log(error, "error");
+            toast.error(<ToastMsg title={error?.response?.data?.message} />);
+        }
+
+    }
 
     return (
         <div className="py-10 px-4">
@@ -113,9 +175,21 @@ const AddProduct = () => {
                     </div>
                     <div className="col-span-2">
                         <MultipleFileUpload
-                            setImages={setImages}
-                            images={images}
+                            setImages={productId ? setUpdateImages:setImages}
+                            images={productId?updateImages: images}
+                            productId={productId||null}
                         />
+                        <div className="flex gap-4  flex-wrap my-4">
+        { productId && images?.length>0 && (
+          images?.map((url ,index)=>(
+            <div   key={index} className="flex flex-col gap-1 relative bg-gray-300 p-1 rounded-md">
+                {/* <button type="button" onClick={()=>handleFrontImage(index)} className="text-2xl flex-center bg-pink-100 rounded-full w-8 h-8 text-red-500 absolute top-2 right-2">{ isFront===index? reactIcons.heartFill :  reactIcons.heartOutline}</button> */}
+                <button type="button" onClick={()=>handleRemoveImage(url)} className="text-xl flex-center bg-pink-100 rounded-full w-8 h-8 text-red-500 absolute left-2 top-2">{ reactIcons.delete}</button>
+                <img className="w-32 h-32 object-contain cursor-pointer" src={imageRender(url)} alt="" />
+            </div>
+          ))
+        )}
+      </div>
                     </div>
 
                     <TextInput
@@ -173,7 +247,7 @@ const AddProduct = () => {
                     </div>
                     <div className="col-span-2">
                         <button type="submit" className="btn-primary">
-                            Add
+                            {productId? 'Update'  :'Add'}
                         </button>
                     </div>
                 </div>

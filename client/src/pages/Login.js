@@ -8,11 +8,14 @@ import TextInput from "../components/forms/TextInput";
 import { loginValidation } from "../utils/validation";
 import { isYupError, parseYupError } from "../utils/yup";
 import Spinner from "../components/loaders/Spinner";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/features/authSlice";
 const initialState = {
   email: "",
   password: "",
 };
 const Login = () => {
+    const dispatch=useDispatch()
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [form, setForm] = useState(initialState);
@@ -41,6 +44,7 @@ const Login = () => {
         localStorage.setItem("ashishToken", data.token);
         handleReset();
         navigate("/");
+        dispatch(setUser(data.result))
       } else {
         toast.error(<ToastMsg title={data.message} />);
       }
