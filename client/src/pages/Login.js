@@ -52,7 +52,7 @@ const Login = () => {
       if (isYupError(error)) {
         setError(parseYupError(error));
       } else {
-        toast.error(<ToastMsg title={error.response.data.message} />);
+        toast.error(<ToastMsg title={error?.response?.data?.message} />);
       }
       console.log(error, "error");
     } finally {

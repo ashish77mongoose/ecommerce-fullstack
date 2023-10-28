@@ -26,7 +26,7 @@ const Category = () => {
         toast.error(<ToastMsg title={data.message} />);
       }
     } catch (error) {
-      toast.error(<ToastMsg title={error.response.data.message} />);
+      toast.error(<ToastMsg title={error?.response?.data?.message} />);
     }
   };
   useEffect(() => {
@@ -44,7 +44,7 @@ const Category = () => {
         toast.error(<ToastMsg title={data.message} />);
       }
     } catch (error) {
-      toast.error(<ToastMsg title={error.response.data.message} />);
+      toast.error(<ToastMsg title={error?.response?.data?.message} />);
     }
   };
   return (

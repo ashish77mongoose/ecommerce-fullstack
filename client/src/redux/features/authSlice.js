@@ -4,12 +4,16 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
+    carts:[],
     error: "",
     loading: false,
   },
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
+    },
+    updateCartItem: (state, action) => {
+      state.carts = [...state.carts,action.payload];
     },
     updateUser: (state, action) => {
       state.user = { ...state.user, ...action.payload };
@@ -22,6 +26,6 @@ const authSlice = createSlice({
   extraReducers: {},
 });
 
-export const { setUser, setLogout, updateUser } = authSlice.actions;
+export const { setUser, setLogout, updateUser,updateCartItem } = authSlice.actions;
 
 export default authSlice.reducer;

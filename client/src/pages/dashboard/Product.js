@@ -23,7 +23,7 @@ const Product = () => {
         toast.error(<ToastMsg title={data.message} />);
       }
     } catch (error) {
-      toast.error(<ToastMsg title={error.response.data.message} />);
+      toast.error(<ToastMsg title={error?.response?.data?.message} />);
     }
   };
   useEffect(() => {
@@ -41,7 +41,7 @@ const Product = () => {
         toast.error(<ToastMsg title={data.message} />);
       }
     } catch (error) {
-      toast.error(<ToastMsg title={error.response.data.message} />);
+      toast.error(<ToastMsg title={error?.response?.data?.message} />);
     }
   };
  

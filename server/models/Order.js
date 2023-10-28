@@ -33,6 +33,7 @@ const orderSchema = mongoose.Schema({
         type: String,
         required: true,
         default: 'Pending',
+        enum: ['Pending', 'Processed',"Delivered","Rejected"]
     },
     totalPrice: {
         type: Number,
@@ -40,10 +41,6 @@ const orderSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-    },
-    dateOrdered: {
-        type: Date,
-        default: Date.now,
     },
 },{ timestamps: true })
 

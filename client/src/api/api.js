@@ -28,10 +28,12 @@ export const getProducts = () => API.get("products");
 export const addProduct = (formData) => API.post("products", formData);
 export const deleteProduct = (id) => API.delete(`products/${id}`);
 export const updateProduct = (id, formData) =>
-  API.put(`products/${id}`, formData);
+API.put(`products/${id}`, formData);
 export const deleteProductImage = (id, formData) =>
-  API.put(`products/delete-product-image/${id}`, formData);
+API.put(`products/delete-product-image/${id}`, formData);
 
+export const addToCart = (formData) => API.post("orders/add-to-cart",formData);
+export const getCartItems = () => API.get('orders/cart-items');
 
 // Sub Category
 export const addSubCategory = (formData) =>

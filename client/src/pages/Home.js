@@ -18,7 +18,7 @@ const Home = () => {
         toast.error(<ToastMsg title={data.message} />);
       }
     } catch (error) {
-      toast.error(<ToastMsg title={error.response.data.message} />);
+      toast.error(<ToastMsg title={error?.response?.data?.message} />);
     }
   };
   const getAllFeaturedProducts = async () => {
@@ -31,14 +31,13 @@ const Home = () => {
         toast.error(<ToastMsg title={data.message} />);
       }
     } catch (error) {
-      toast.error(<ToastMsg title={error.response.data.message} />);
+      toast.error(<ToastMsg title={error?.response?.data?.message} />);
     }
   };
   useEffect(() => {
     getAllCategories();
     getAllFeaturedProducts();
   }, []);
-  console.log(featuredProducts, "featured");
   return (
     <section className="">
       <div className="container">

@@ -94,6 +94,9 @@
   .btn-primary {
     @apply btn bg-amber-500 text-white;
   }
+  .btn-secondary {
+    @apply btn bg-cyan-500 text-white;
+  }
   .btn-red {
     @apply btn bg-red-500 text-white;
   }

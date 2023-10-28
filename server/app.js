@@ -6,6 +6,7 @@ import userRoutes from "./routes/users.js";
 import categoryRoutes from "./routes/categories.js";
 import subCategoryRoutes from "./routes/subCategories.js";
 import productRoutes from "./routes/products.js";
+import orderRoutes from "./routes/orders.js";
 import upload from "./middleware/upload.js";
 import dotenv from "dotenv";
 import morgan from "morgan";
@@ -26,6 +27,7 @@ app.use("/auth", userRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/sub-categories", subCategoryRoutes);
 app.use("/products", productRoutes);
+app.use("/orders", orderRoutes);
 app.post("/upload", upload.single("file"), (req, res) => {
   res.status(200).json(req.file.filename);
 });
