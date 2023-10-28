@@ -12,7 +12,13 @@ const orderItemSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    isPlaced: {
+        type: Boolean,
+        required: true,
+        default:false
+
+    },
 },{ timestamps: true })
 export default mongoose.model("OrderItem", orderItemSchema);
 

@@ -11,6 +11,7 @@ import Dashboard from "./dashboard/Dashboard";
 import Product from "./dashboard/Product";
 import SubCategory from "./dashboard/SubCategory";
 import AddProduct from "./dashboard/AddProduct";
+import CartDetail from "./CartDetail";
 
 export {
     Login,
@@ -19,6 +20,7 @@ export {
     ForgotPassword,
     ResetPassword,
     Home,
+    CartDetail,
     Category,
     AllSubCategory,
     ProductDetail,

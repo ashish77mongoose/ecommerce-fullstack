@@ -10,7 +10,7 @@ export const signin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const oldUser = await User.findOne({ email }).populate('carts');
+    const oldUser = await User.findOne({ email }).populate({ path: 'carts', select: 'product' });
     if (!oldUser)
       return res.status(404).json({ message: "User doesn't exist" });
 
@@ -125,8 +125,7 @@ export const googleSignIn = async (req, res) => {
 };
 export const getUser = async (req, res) => {
   const user = req.user;
-  const userData = await User.findById(user.id, { password: 0 }).populate('carts');
-  
+  const userData = await User.findById(user.id, { password: 0 }).populate({ path: 'carts', select: 'product' });
   res.status(200).json(userData);
 };
 export const getUsers = async (req, res) => {

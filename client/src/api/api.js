@@ -34,6 +34,7 @@ API.put(`products/delete-product-image/${id}`, formData);
 
 export const addToCart = (formData) => API.post("orders/add-to-cart",formData);
 export const getCartItems = () => API.get('orders/cart-items');
+export const placeOrder = (formData) => API.post('orders',formData);
 
 // Sub Category
 export const addSubCategory = (formData) =>

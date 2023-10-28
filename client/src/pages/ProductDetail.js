@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { addToCart, getCartItem, getSingleProduct } from "../api/api";
+import { Link, useParams } from "react-router-dom";
+import { addToCart, getSingleProduct } from "../api/api";
 import ToastMsg from "../components/toast/ToastMsg";
 import { toast } from "react-toastify";
 import { imageRender, numberWithCommas } from "../utils/helpers";
 import ImagesSwiper from "../components/swipers/ImagesSwiper";
 import { reactIcons } from "../utils/icons";
 import StarRating from "../components/forms/StarRating";
-import {  useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector } from "react-redux";
+import { updateUserCarts } from "../redux/features/authSlice";
 const ProductDetail = () => {
+    const dispatch=useDispatch();
     const [active, setActive] = useState(0);
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState({});
@@ -28,7 +30,7 @@ const ProductDetail = () => {
             toast.error(<ToastMsg title={error?.response?.data?.message} />);
         }
     };
-    console.log( user?.carts?.findIndex(item=>item.productId===id))
+
 
     
     useEffect(() => {
@@ -56,6 +58,7 @@ const ProductDetail = () => {
             const res = await addToCart({product:id, quantity:quantity});
             const { status, data } = res;
             if (status >= 200 && status <= 300) {
+            dispatch(updateUserCarts({product:id, quantity:quantity,user:user._id}))
                 toast.success(<ToastMsg title={'Added Successfully'} />);
             } else {
                 toast.error(<ToastMsg title={data.message} />);
@@ -69,7 +72,7 @@ const ProductDetail = () => {
             <div className="container">
                 <div className="flex gap-10">
                     <div className="relative max-w-[600px] w-full bg-zinc-100 ">
-                        <div className="w-full  h-[600px] rounded-md overflow-hidden">
+                        <div className="w-full  h-[600px] rounded-md overflow-hidden bg-zinc-300">
                             <img
                                 className="w-full h-full object-contain hoverable-img"
                                 src={imageRender(product?.images?.[active])}
@@ -122,7 +125,7 @@ const ProductDetail = () => {
                             />
                         </div>
                         <div className="flex gap-4 items-center">
-                        {gotoCart? <button className="btn-primary">Go to cart</button> : <button onClick={handleAddToCart} className="btn-primary">Add to cart</button>}
+                        {gotoCart? <Link to='/cart' className="btn-primary">Go to cart</Link> : <button onClick={handleAddToCart} className="btn-primary">Add to cart</button>}
                         <button className="btn-secondary">Add to Wishlist</button>
                         </div>
                     </div>

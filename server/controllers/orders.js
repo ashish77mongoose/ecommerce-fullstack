@@ -21,19 +21,18 @@ export const createOrder = async (req,res) =>{
     const totalPrice = totalPrices.reduce((a,b) => a +b , 0);
 
     let order = new Order({
-        orderItems: orderItemsIds,
+        orderItems: req.body.orderItems,
         shippingAddress1: req.body.shippingAddress1,
         shippingAddress2: req.body.shippingAddress2,
         city: req.body.city,
         zip: req.body.zip,
         country: req.body.country,
         phone: req.body.phone,
-        status: req.body.status,
         totalPrice: totalPrice,
         user: user.id,
     })
     order = await order.save();
-     await OrderItem.deleteMany({user:user.id});
+     await OrderItem.updateMany({user:user.id},{ isPlaced: true });
     if(!order)
     return res.status(400).send('the order cannot be created!')
     res.send(order);
@@ -126,7 +125,7 @@ export const addToCart = async (req,res) =>{
 }
 export const getAllCartItem = async (req,res) =>{
     const user=req.user;
-    const orderItems = await OrderItem.find({user:user.id});
+    const orderItems = await OrderItem.find({user:user.id,isPlaced:false}).populate('product');
     if(!orderItems) {
         res.status(500).json({success: false})
     } 
