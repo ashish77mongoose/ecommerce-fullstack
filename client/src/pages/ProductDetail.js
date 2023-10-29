@@ -58,7 +58,7 @@ const ProductDetail = () => {
             const res = await addToCart({product:id, quantity:quantity});
             const { status, data } = res;
             if (status >= 200 && status <= 300) {
-            dispatch(updateUserCarts({product:id, quantity:quantity,user:user._id}))
+                dispatch(updateUserCarts({product:id, quantity:quantity,user:user._id,isPlaced:false}))
                 toast.success(<ToastMsg title={'Added Successfully'} />);
             } else {
                 toast.error(<ToastMsg title={data.message} />);

@@ -11,6 +11,8 @@ import {
 } from "react-icons/bi";
 import { IoIosArrowRoundBack, IoMdClose } from "react-icons/io";
 import {
+    BsCartCheck,
+  BsCartX,
   BsCheckLg,
   BsChevronDown,
   BsChevronLeft,
@@ -73,4 +75,6 @@ export const reactIcons = {
   profit: <BiDollarCircle />,
   vault: <BsWallet2 />,
   product: <BsFillBoxFill />,
+  cart:<BsCartCheck/>,
+  emptyCart:<BsCartX/>
 };

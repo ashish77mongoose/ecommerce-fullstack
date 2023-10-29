@@ -9,10 +9,12 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
+  const cartLength=user?.carts.filter(item=>item.isPlaced===false)?.length;
   const handleLogout = () => {
     dispatch(setLogout());
     navigate("/login");
   };
+  console.log(cartLength,'cartLength')
   return (
     <nav className="flex items-center  shadow-navbar  py-3 sticky top-0 w-full bg-white z-[50]">
       <div className="container">
@@ -24,7 +26,11 @@ const Navbar = () => {
           </div>
           <div className="flex gap-2 items-center">
             {user && (
-              <div className="flex">
+              <div className="flex items-center gap-6">
+                <Link to='/cart' className="w-10 h-10 rounded-full text-xl bg-zinc-300 flex-center relative"> 
+                {cartLength>0&&<span className="absolute leading-[1] -top-2 -right-2  w-6 h-6 flex-center rounded-full text-sm font-semibold bg-red-600 text-white">{cartLength}</span> }
+                
+                  {reactIcons.cart}</Link>
                 <Menu as="div" className="relative">
                   <Menu.Button
                     className={

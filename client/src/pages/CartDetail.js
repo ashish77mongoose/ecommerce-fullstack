@@ -4,6 +4,10 @@ import ToastMsg from "../components/toast/ToastMsg";
 import { toast } from "react-toastify";
 import { imageRender, numberWithCommas } from "../utils/helpers";
 import TextInput from "../components/forms/TextInput";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserCarts, updateWholeCarts } from "../redux/features/authSlice";
+import RenderNoData from "../components/layout/RenderNoData";
 const initialState = {
     orderItems: [],
     shippingAddress1: "",
@@ -15,6 +19,8 @@ const initialState = {
     
 };
 const CartDetail = () => {
+    const user = useSelector((state) => state.auth.user);
+    const dispatch=useDispatch()
     const [cartData, setCartData] = useState([]);
     const [form, setForm] = useState(initialState);
     const [toggle, setToggle] = useState(false);
@@ -52,6 +58,8 @@ const CartDetail = () => {
             const { status, data } = res;
             if (status >= 200 && status <= 300) {
                 toast.success(<ToastMsg title={'Order placed successfully'} />);
+                dispatch(updateWholeCarts(user?.carts.map((item)=>({...item,isPlaced:true}))))
+                handleReset();
             } else {
                 toast.error(<ToastMsg title={data.message} />);
             }
@@ -69,8 +77,8 @@ const CartDetail = () => {
                 <div className="grid grid-cols-5  gap-10">
                     <div className="border-c col-span-3 rounded-md ">
                         <ul>
-                            {cartData.map(({ product, quantity }) => (
-                                <li
+                            {cartData.length>0?  cartData.map(({ product, quantity }) => (
+                                <Link to={`/product/${product._id}`}
                                     key={product._id}
                                     className="flex items-center hover:bg-amber-100 gap-6 py-4 px-6 border-b border-b-zinc-200"
                                 >
@@ -101,9 +109,11 @@ const CartDetail = () => {
                                             </span>
                                         </p>
                                     </div>
-                                </li>
-                            ))}
-                        </ul>
+                                </Link>
+                            )):<li>
+                                <RenderNoData title={'Your cart is empty'}/>
+                                </li>}
+                        </ul> 
                     </div>
                     <div className="border-c col-span-2 rounded-md ">
                         <form onSubmit={handlePlaceOrder} action="">
@@ -149,7 +159,7 @@ const CartDetail = () => {
                                 />
                                 <TextInput
                                     label={"Zip Code"}
-                                    type="text"
+                                    type="number"
                                     placeholder="Enter zip code"
                                     name="zip"
                                     value={form.zip}
@@ -158,7 +168,7 @@ const CartDetail = () => {
                                 />
                                 <TextInput
                                     label={"Phone Number"}
-                                    type="text"
+                                    type="number"
                                     placeholder="Enter phone number"
                                     name="phone"
                                     value={form.phone}

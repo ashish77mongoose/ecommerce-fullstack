@@ -201,6 +201,7 @@ const AddProduct = () => {
                     />
                     <TextInput
                         name="price"
+                        type="number"
                         label={"Price"}
                         placeholder="Price "
                         value={form.price}
@@ -208,6 +209,7 @@ const AddProduct = () => {
                     />
                     <TextInput
                         name="countInStock"
+                        type="number"
                         label={"Quantity"}
                         placeholder="Quantity"
                         value={form.countInStock}
