@@ -1,6 +1,6 @@
 import React from "react";
 import { reactIcons } from "../../utils/icons";
-const RenderNoData = ({ title, subtitle, className }) => {
+const RenderNoData = ({ title, subtitle, className,icon }) => {
   return (
     <div className={`text-center py-20 ${className}`}>
       <div className="flex justify-center items-center text-center flex-col ">

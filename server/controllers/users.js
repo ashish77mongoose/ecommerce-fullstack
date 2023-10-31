@@ -4,7 +4,7 @@ import fs from "fs";
 import User from "../models/User.js";
 import Token from "../models/Token.js";
 import crypto from "crypto";
-import { sendEmail } from "../utils/SendEmail.js";
+import { sendEmail } from "../SendEmail.js";
 
 export const signin = async (req, res) => {
   const { email, password } = req.body;
@@ -158,7 +158,7 @@ export const resetPasswordRequestController = async (req, res) => {
       name: user.fullName,
       link: link,
     },
-    "../utils/template/requestResetPassword.handlebars"
+    '/views/template/requestResetPassword.ejs'
   );
   return res.json({ link });
 };
@@ -194,7 +194,7 @@ export const resetPasswordController = async (req, res) => {
     {
       name: user.fullName,
     },
-    "./template/resetPassword.handlebars"
+    '/views/template/resetPassword.ejs'
   );
 
   await passwordResetToken.deleteOne();

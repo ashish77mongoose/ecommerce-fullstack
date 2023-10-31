@@ -9,12 +9,11 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
-  const cartLength=user?.carts.filter(item=>item.isPlaced===false)?.length;
+  const cartLength=user?.carts?.filter(item=>item.isPlaced===false)?.length;
   const handleLogout = () => {
     dispatch(setLogout());
     navigate("/login");
   };
-  console.log(cartLength,'cartLength')
   return (
     <nav className="flex items-center  shadow-navbar  py-3 sticky top-0 w-full bg-white z-[50]">
       <div className="container">
