@@ -4,6 +4,7 @@ import "./index.css";
 import { ToastContainer, toast } from "react-toastify";
 import {
     AddProduct,
+  AllProducts,
   AllSubCategory,
   CartDetail,
   Category,
@@ -54,6 +55,7 @@ function App() {
             <Route path="/category/:id" element={<AllSubCategory />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<CartDetail />} />
+            <Route path="/products" element={<AllProducts />} />
           </Route>
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />

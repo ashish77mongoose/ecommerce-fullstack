@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
           alt={product.title}
         />
       </div>
-      <div className="py-4 px-4 space-y-2">
+      <div className="py-4 px-4 space-y-2 bg-neutral-200 rounded-b-lg">
         <div className="text-center">
           <h4 className="heading-4">{product.name}</h4>
           <p className="text-muted line-clamp-1">{product.description}</p>

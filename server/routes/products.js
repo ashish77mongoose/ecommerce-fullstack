@@ -6,6 +6,7 @@ import {
   deleteProduct,
   deleteProductImage,
   getAllProduct,
+  getBrands,
   getFeaturedProduct,
   getProduct,
   updateProduct,
@@ -13,6 +14,7 @@ import {
 
 router.get(`/`, getAllProduct);
 router.get(`/featured`, getFeaturedProduct);
+router.get(`/brands`, getBrands);
 router.get(`/:id`, getProduct);
 router.post(`/`, upload.array("images", 10), createProduct);
 router.put("/:id",upload.array("images", 10), updateProduct);

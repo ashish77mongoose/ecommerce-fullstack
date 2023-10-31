@@ -94,6 +94,9 @@
   .btn-primary {
     @apply btn bg-amber-500 text-white;
   }
+  .btn-outline-primary {
+    @apply btn text-amber-500 border border-amber-500;
+  }
   .btn-secondary {
     @apply btn bg-cyan-500 text-white;
   }

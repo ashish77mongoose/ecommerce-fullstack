@@ -43,6 +43,16 @@ export const getFeaturedProduct = async (req, res) => {
   }
   res.status(200).json(product);
 };
+export const getBrands = async (req, res) => {
+  const product = await Product.agg({ isFeatured: true }).populate(
+    "subCategory"
+  );
+
+  if (!product) {
+    res.status(500).json({ message: "Product not found" });
+  }
+  res.status(200).json(product);
+};
 export const getAllProduct = async (req, res) => {
   let filter = {};
   if (req.query.categories) {

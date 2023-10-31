@@ -27,3 +27,10 @@ export const colorsOptions=[
     '#fde047',
     '#a3e635'
 ]
+export const sortBy=[
+    
+    { id: 1, name: 'Sort By',  },
+    { id: 2, name: 'High to low',  },
+    { id: 3, name: 'Low to high',  },
+      
+]
