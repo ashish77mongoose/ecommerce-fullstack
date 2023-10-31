@@ -10,7 +10,10 @@ export const signin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const oldUser = await User.findOne({ email }).populate({ path: 'carts', select: 'product' });
+    const oldUser = await User.findOne({ email }).populate({
+      path: "carts",
+      select: "product",
+    });
     if (!oldUser)
       return res.status(404).json({ message: "User doesn't exist" });
 
@@ -45,8 +48,8 @@ export const uploadProfileImage = async (req, res) => {
   }
 
   try {
-    if(fileName){
-        fs.unlinkSync("./public/uploads" + fileName);
+    if (fileName) {
+      fs.unlinkSync("./public/uploads" + fileName);
     }
     let imageToSet;
     if (type === "cover") {
@@ -68,12 +71,12 @@ export const uploadProfileImage = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-  const data= {...req.body};
-  let fullName=`${data.firstName} ${data.lastName}`
+  const data = { ...req.body };
+  let fullName = `${data.firstName} ${data.lastName}`;
   delete data.firstName;
   delete data.lastName;
   try {
-    const oldUser = await User.findOne({ email:data.email });
+    const oldUser = await User.findOne({ email: data.email });
 
     if (oldUser) {
       return res.status(400).json({ message: "User already exists" });
@@ -82,13 +85,13 @@ export const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(data.password, 12);
 
     const result = await User.create({
-     ...data,
+      ...data,
       password: hashedPassword,
       fullName: fullName,
     });
 
     const token = jwt.sign(
-      { email: result.email, id: result._id,role:result.role },
+      { email: result.email, id: result._id, role: result.role },
       process.env.JWTSECRET,
       {
         expiresIn: "1d",
@@ -125,17 +128,19 @@ export const googleSignIn = async (req, res) => {
 };
 export const getUser = async (req, res) => {
   const user = req.user;
-  const userData = await User.findById(user.id, { password: 0 }).populate('carts');
+  const userData = await User.findById(user.id, { password: 0 }).populate(
+    "carts"
+  );
   res.status(200).json(userData);
 };
 export const getUsers = async (req, res) => {
-    const users = await User.find({})
-    res.status(200).json(users);
-  };
+  const users = await User.find({});
+  res.status(200).json(users);
+};
 
 export const resetPasswordRequestController = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
-  if (!user) throw new Error("Email does not exist");
+  if (!user) res.status(404).json({ message: "Email does not exist" });
 
   let token = await Token.findOne({ userId: user._id });
   if (token) await token.deleteOne();
@@ -158,7 +163,7 @@ export const resetPasswordRequestController = async (req, res) => {
       name: user.fullName,
       link: link,
     },
-    '/views/template/requestResetPassword.ejs'
+    "/views/template/requestResetPassword.ejs"
   );
   return res.json({ link });
 };
@@ -169,13 +174,17 @@ export const resetPasswordController = async (req, res) => {
   let passwordResetToken = await Token.findOne({ userId });
 
   if (!passwordResetToken) {
-    throw new Error("Invalid or expired password reset token first one");
+    res
+      .status(404)
+      .json({ message: "Invalid or expired password reset token first one" });
   }
 
   const isValid = await bcrypt.compare(token, passwordResetToken.token);
 
   if (!isValid) {
-    throw new Error("Invalid or expired password reset token");
+    res
+      .status(404)
+      .json({ message: "Invalid or expired password reset token" });
   }
 
   const hash = await bcrypt.hash(password, Number(process.env.BCRYPT_SALT));
@@ -194,12 +203,10 @@ export const resetPasswordController = async (req, res) => {
     {
       name: user.fullName,
     },
-    '/views/template/resetPassword.ejs'
+    "/views/template/resetPassword.ejs"
   );
 
   await passwordResetToken.deleteOne();
 
   return res.json({ message: "Password reset was successful" });
 };
-
-
