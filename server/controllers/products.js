@@ -54,11 +54,11 @@ export const getAllProduct = async (req, res) => {
   if (!productList) {
     res.status(500).json({ success: false });
   }
-  res.send(productList);
+  res.status(200).json(productList);
 };
 export const updateProduct = async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id)) {
-    return res.status(400).send("Invalid Product Id");
+    return res.status(400).json({ message: "Invalid Product Id" });
   }
   const oldProduct = await Product.findOne({ _id: req.params.id });
   const oldImages = oldProduct.images;
@@ -74,13 +74,13 @@ export const updateProduct = async (req, res) => {
       });
     }
   }
-  let data={...req.body};
+  let data = { ...req.body };
   delete data.images;
   const product = await Product.findByIdAndUpdate(
     req.params.id,
     {
       ...data,
-      images:imagesPaths
+      images: imagesPaths,
     },
     { new: true }
   );
