@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getCategories, getProducts } from "../api/api";
+import { getBrands, getCategories, getProducts } from "../api/api";
 import { toast } from "react-toastify";
 import ToastMsg from "../components/toast/ToastMsg";
 import ProductCardSkeleton from "../components/cards/ProductCardSkeleton";
@@ -11,6 +11,7 @@ import TextInput from "../components/forms/TextInput";
 
 const AllProducts = () => {
     const [categories, setCategories] = useState([]);
+    const [brands, setBrands] = useState([]);
     const [priceFilter, setPriceFilter] = useState({
         min:'',
         max:''
@@ -24,6 +25,19 @@ const AllProducts = () => {
             const { status, data } = res;
             if (status >= 200 && status <= 300) {
                 setCategories(data);
+            } else {
+                toast.error(<ToastMsg title={data.message} />);
+            }
+        } catch (error) {
+            toast.error(<ToastMsg title={error?.response?.data?.message} />);
+        }
+    };
+    const getAllBrands = async () => {
+        try {
+            const res = await getBrands();
+            const { status, data } = res;
+            if (status >= 200 && status <= 300) {
+                setBrands(data);
             } else {
                 toast.error(<ToastMsg title={data.message} />);
             }
@@ -49,6 +63,7 @@ const AllProducts = () => {
     useEffect(() => {
         getAllCategories();
         getAllProducts();
+        getAllBrands()
     }, []);
     return (
         <section>
@@ -72,8 +87,23 @@ const AllProducts = () => {
                             </ul>
                         </header>
                     </div>
-                    <div className="px-4 pb-10">
+                    <div className="px-4 mb-4">
                         <header>
+                            <h5 className="heading-6 mb-2">Brands</h5>
+                            <ul className="space-y-2">
+                                {brands.map((item, index) => (
+                                    <li key={index} className="font-medium">
+                                     <label htmlFor={item.brandName} className="flex gap-2 items-center">
+                                        <input className="accent-amber-500 w-4 h-4" type="checkbox" name="" id={item._id} />
+                                           {item.brandName}
+                                     </label>
+                                    </li>
+                                ))}
+                            </ul>
+                        </header>
+                    </div>
+                    <div className="px-4 pb-10">
+                        <div>
                             <h5 className="heading-6 mb-2">Price</h5>
                             <div className="flex gap-2">
                                 <TextInput value={priceFilter.min} onChange={(e)=>setPriceFilter({...priceFilter,min:e.target.value})} placeholder='Min'/>
@@ -81,7 +111,7 @@ const AllProducts = () => {
                                 
                                 
                             </div>
-                        </header>
+                        </div>
                     </div>
                 </div>
                 <div className="flex-1 w-full">

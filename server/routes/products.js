@@ -9,11 +9,13 @@ import {
   getBrands,
   getFeaturedProduct,
   getProduct,
+  getStats,
   updateProduct,
 } from "../controllers/products.js";
 
 router.get(`/`, getAllProduct);
 router.get(`/featured`, getFeaturedProduct);
+router.get(`/stats`, getStats);
 router.get(`/brands`, getBrands);
 router.get(`/:id`, getProduct);
 router.post(`/`, upload.array("images", 10), createProduct);

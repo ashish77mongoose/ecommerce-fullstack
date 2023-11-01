@@ -25,6 +25,7 @@ export const updateCategory = (id, formData) =>
 
 // Products
 export const getProducts = () => API.get("products");
+export const getBrands = () => API.get("products/brands");
 export const addProduct = (formData) => API.post("products", formData);
 export const deleteProduct = (id) => API.delete(`products/${id}`);
 export const updateProduct = (id, formData) =>

@@ -63,20 +63,6 @@ const Navbar = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <button
-                              onClick={() => navigate("/my-post")}
-                              className={`${
-                                active
-                                  ? "bg-violet-500 text-white"
-                                  : "text-gray-900"
-                              } group flex w-full items-center rounded-md px-2 py-2 text-base`}
-                            >
-                              My Posts
-                            </button>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
                               onClick={() => navigate(`/profile/${user._id}`)}
                               className={`${
                                 active
